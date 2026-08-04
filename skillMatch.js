@@ -7,11 +7,21 @@ class Candidato {
     this.experiencias = experiencias;
     this.tempoExperiencia = tempoExperiencia;
   }
-  describe() {
-    console.log(
-      `Candidato: ${this.nome}\nÁrea: ${this.area}\nHabilidades: ${this.habilidades.join(", ")}\nExperiências: ${this.experiencias.join(", ")}\nTempo total de experiência: ${this.tempoExperiencia} anos.`,
-    );
-  }
+ describe() {
+  return `
+==============================
+Candidato: ${this.nome}
+Área: ${this.area}
+
+Habilidades:
+- ${this.habilidades.join("\n- ")}
+
+Experiências:
+- ${this.experiencias.join("\n- ")}
+
+Tempo total de experiência: ${this.tempoExperiencia} anos
+`;
+}
 }
 // Candidatos
 const candidato1 = new Candidato(
@@ -39,7 +49,7 @@ const candidato2 = new Candidato(
     "C++",
     "HTML",
     "React",
-    "SpringBoot",
+    "Springboot",
     "SQL/NoSQL",
     "CSS",
     "Git/GitHub",
@@ -54,19 +64,25 @@ const candidato2 = new Candidato(
 
 // Class Vaga
 class Vaga {
-  constructor(empresa,titulo, areaVaga, habilidadesNecessarias, 
-    tempoExpDesejado,) {
-      this.empresa = empresa;
-      this.titulo = titulo;
-      this.areaVaga = areaVaga;
-      this.habilidadesNecessarias = habilidadesNecessarias;
-      this.tempoExpDesejado = tempoExpDesejado;
-    }
-   describe() {
-    return `
-Descrição da vaga
+  constructor(
+    empresa,
+    titulo,
+    areaVaga,
+    habilidadesNecessarias,
+    tempoExpDesejado
+  ) {
+    this.empresa = empresa;
+    this.titulo = titulo;
+    this.areaVaga = areaVaga;
+    this.habilidadesNecessarias = habilidadesNecessarias;
+    this.tempoExpDesejado = tempoExpDesejado;
+  }
 
+  describe() {
+    return `
+==============================
 Empresa: ${this.empresa}
+Cargo: ${this.titulo}
 Área: ${this.areaVaga}
 
 Habilidades necessárias:
@@ -74,33 +90,90 @@ Habilidades necessárias:
 
 Experiência desejada: ${this.tempoExpDesejado} anos
 `;
-}
+  }
 }
 
+class VagaFrontEnd extends Vaga {
+  constructor(empresa) {
+    super(
+      empresa,
+      "Desenvolvedor Front-End Júnior",
+      "Desenvolvimento Front-End",
+      [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Git/GitHub",
+        "Trello",
+      ],
+      2
+    );
+  }
+}
+class VagaAnaliseDados extends Vaga {
+  constructor(empresa) {
+    super(
+      empresa,
+      "Analista de Dados Júnior",
+      "Análise de Dados",
+      [
+        "Python",
+        "SQL/NoSQL",
+        "PostgreSQL",
+        "Git/GitHub",
+      ],
+      2
+    );
+  }
+}
+class VagaFullStack extends Vaga {
+  constructor(empresa) {
+    super(
+      empresa,
+      "Desenvolvedor Full Stack Pleno",
+      "Desenvolvimento de Software",
+      [
+        "Java",
+        "Springboot",
+        "SQL/NoSQL",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "React",
+        "Git/GitHub",
+        "APIs REST",
+      ],
+      5
+    );
+  }
+}
 // Vagas
-const vaga1 =  new Vaga ("Sport Club Internacional","Analísta de dados Júnior", "Análise de dados", 
-  ["Python","SQL/NoSQL","Git/GitHub", "PostgreSQL",], 2 )
+const vaga1 = new VagaAnaliseDados(
+  "Sport Club Internacional"
+);
 
-  const vaga2 = new Vaga(
-  "Mercado Livre","Desenvolvedor Front-end Junior", "Desenvolvimento Front-End", 
-  [    "HTML", "CSS", "JavaScript", "React", "Git/GitHub", "Trello"
-  ],2)
+const vaga2 = new VagaFrontEnd(
+  "Mercado Livre"
+);
 
-  const vaga3 =  new Vaga(
-    "IFood", "Desenvolvedor FullStack Pleno", "Desenvolvimento de Software",[
-      "Java", "SpringBoot","SQL/NoSQL","JavaScript", "HTML", "React","CSS","Bancos de dados Geoespaciais", "API's de Geolocalização","Git/GitHub"
-    ],10)
-
-const vagas = [vaga1, vaga2, vaga3]
+const vaga3 = new VagaFullStack(
+  "iFood"
+);
+//arrays contendo os elementos para Aplicação do match
+const vagas = [vaga1, vaga2, vaga3];
+const candidatos = [candidato1, candidato2];
 
 
 // testes  
-candidato1.describe();
-console.log("----------------------------");
-candidato2.describe();
-
-vagas.forEach((vaga)=>{
+candidatos.forEach((vaga)=>{
   console.log(vaga.describe())
   console.log("--------------------------------------")
 })
     
+
+vagas.forEach((candidato)=>{
+  console.log(candidato.describe())
+  console.log("--------------------------------------")
+})
+
